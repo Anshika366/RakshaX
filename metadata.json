@@ -1,0 +1,6 @@
+{
+  "name": "RakshaX",
+  "description": "RakshaX is a premium real-life safety application. One tap instantly alerts your family with your live GPS location, WhatsApp, SMS, and connects with nearby emergency services.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-blue: #2563EB;
+  --color-brand-blue-hover: #1D4ED8;
+  --color-brand-purple: #8B5CF6;
+  --color-brand-danger: #EF4444;
+  --color-brand-danger-hover: #DC2626;
+  --color-brand-success: #10B981;
+  --color-card-bg: #F8FAFC;
+}
+
+@layer utilities {
+  /* Dynamic pulsate animation */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.95);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  }
+
+  /* Frosted Glass Core Classes */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  }
+
+  .glass-panel-heavy {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.06);
+  }
+
+  .glass-panel-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .glass-panel-hover:hover {
+      background-color: rgba(255, 255, 255, 0.75);
+      border-color: rgba(203, 213, 225, 0.85);
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      transform: translateY(-2px);
+    }
+  }
+
+  .glass-navbar {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.02);
+  }
+
+  /* Subtle ambient tints for calm, reassuring trust */
+  .glow-blue {
+    box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.12);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.12);
+  }
+
+  .glow-red {
+    box-shadow: 0 10px 30px -10px rgba(239, 68, 68, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glass-panel-hover:hover {
+    transform: none !important;
+  }
+}
+
+/* Accessibility Integration Rules */
+.large-text-active {
+  font-size: 1.15rem !important;
+}
+.large-text-active p, 
+.large-text-active span, 
+.large-text-active button, 
+.large-text-active label, 
+.large-text-active input, 
+.large-text-active select, 
+.large-text-active option,
+.large-text-active h3,
+.large-text-active h4 {
+  font-size: 108% !important;
+  line-height: 1.65 !important;
+}
+.large-text-active h2 {
+  font-size: 125% !important;
+}
+
+.high-contrast-active {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  filter: contrast(140%) !important;
+}
+.high-contrast-active .bg-white,
+.high-contrast-active .glass-panel,
+.high-contrast-active .glass-panel-heavy,
+.high-contrast-active .bg-slate-50,
+.high-contrast-active .bg-slate-100 {
+  background-color: #ffffff !important;
+  border-color: #000000 !important;
+  border-width: 2px !important;
+  box-shadow: none !important;
+}
+.high-contrast-active p,
+.high-contrast-active span,
+.high-contrast-active label,
+.high-contrast-active h3,
+.high-contrast-active h4,
+.high-contrast-active h2,
+.high-contrast-active h1,
+.high-contrast-active a {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+.high-contrast-active button {
+  border-color: #000000 !important;
+  font-weight: 800 !important;
+}
+.high-contrast-active input,
+.high-contrast-active select {
+  border-color: #000000 !important;
+  border-width: 2px !important;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.colorblind-active {
+  filter: saturate(1.8) contrast(1.1) !important;
+}
+.colorblind-active .bg-emerald-600 {
+  background-color: #10B981 !important;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.15) 10px, rgba(255,255,255,0.15) 20px) !important;
+}
+.colorblind-active .bg-rose-600,
+.colorblind-active .bg-red-600 {
+  background-color: #EF4444 !important;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.15) 10px, rgba(255,255,255,0.15) 20px) !important;
+}
+
+/* High Contrast Sun Mode Overrides for Dark Elements */
+.high-contrast-active .bg-slate-850,
+.high-contrast-active .bg-slate-800,
+.high-contrast-active .bg-slate-800\/80,
+.high-contrast-active .bg-slate-900,
+.high-contrast-active .bg-slate-950 {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  border-width: 2px !important;
+}
+
+.high-contrast-active .text-indigo-400,
+.high-contrast-active .text-rose-400,
+.high-contrast-active .text-slate-400 {
+  color: #000000 !important;
+}
+
+/* Modern Slim Understated Scrollbar Design System */
+/* Standard for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* Scrollbar None Utility */
+.scrollbar-none {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Thin Elegant Scrollbar Utility for Modals & Containers */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 9999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* Touch target helper */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+
+body {
+  background-color: #F8FAFC;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(219, 234, 254, 0.5) 0px, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(243, 232, 255, 0.5) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(254, 226, 226, 0.3) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(224, 242, 254, 0.4) 0px, transparent 50%);
+  color: #1E293B;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
